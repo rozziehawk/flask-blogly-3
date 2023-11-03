@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Add New User{% endblock %}
+
+{% block content %}
+    
+  <form action="/add_user" method="POST">
+    <label for="first_name">First name: </label>
+    <input type="text" name="first_name" placeholder="First Name"/><br/>
+    <label for="last_name">Last name: </label>
+    <input type="text" name="last_name" placeholder="Last Name"/><br/>
+    <label for="image_url">Image URL: </label>
+    <input type="text" name="image_url" placeholder="Image URL" size="100"/><br/>
+
+    <input type="submit" name="save_cancel" value="Save Changes">&nbsp;&nbsp;&nbsp<input type="submit" name="edit_delete" value="Cancel">
+  </form>
+
+{% endblock %}

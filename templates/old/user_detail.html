@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}{{user.full_name}}{% endblock %}
+
+{% block content %}
+    
+    <table>
+      <tr>
+        <td rowspan="3"><img src="{{user.image_url}}" width="200"</td>
+        <td><h1>{{user.first_name}}&nbsp;{{user.last_name}}</h1></td>
+      </tr>
+      <tr>
+        <td>
+          <form action="/user_action/{{user.id}}" method="POST">
+            <input type="submit" name="edit_delete" value="Edit">&nbsp;&nbsp;&nbsp<input type="submit" name="edit_delete" value="Delete">
+          </form>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {% if user.posts.has_posts == 'yes' %} 
+          <h2>Posts</h2>
+          <ul>
+            {% for post in user.posts %}
+            <li><a href="/posts/{{post.id}}">{{post.title}}</a> - {{post.pretty_date}}</li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <h2>No posts for {{user.full_name}} - {{user.posts.has_posts}}</h2>
+          {% endif %}
+          <form action="/add_post_for_user/{{user.id}}" method="POST">
+            <input type="submit" name="new_post" value="New Post">
+          </form>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/">Home</a>
+        </td> 
+      </tr>
+    </table>
+
+{% endblock %}
