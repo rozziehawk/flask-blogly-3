@@ -59,7 +59,16 @@ class Post(db.Model):
     userid = db.Column(db.Integer, db.ForeignKey('users.id'))
     #user = db.relationship(User)                    
 
-    user = db.relationship(User, backref = 'posts')                    
+    user = db.relationship(User, backref = 'posts')         
+
+    # direct navigation: emp -> PostTag & back
+    post_tags = db.relationship('PostTag',
+                                  backref='post')
+
+    # direct navigation: post -> tag & back
+    tags = db.relationship('Tag',
+                               secondary='post_tag',
+                               backref='posts')           
 
     def __repr__(self):
         p = self
@@ -70,12 +79,30 @@ class Post(db.Model):
         p = self
         return p.created_at.strftime("%b %d, %Y, %-I:%M %p")
     
-    @property
-    def has_posts(self):
-        num_posts = self.Query.filter_by(userid=self.userid).count()
-        print(f"user {self.full_name}, num_posts = {num_posts}")
-        return 'yes' if num_posts > 0 else 'no'
-        
+           
+
+class Tag(db.Model):
+    """ Class for Post "Tag" """
+    __tablename__ = "tags"
+    id = db.Column(db.Integer,
+                primary_key=True,
+                autoincrement=True)
+    name = db.Column(db.Text, nullable=False)
+
+ # direct navigation: proj -> employeeproject & back
+    post_Tag = db.relationship('PostTag',
+                                  backref='tags', cascade="all, delete")
+
+    def __repr__(self):
+        return f"<Tag {self.id} {self.name}>"
+                 
+
+class PostTag(db.Model):
+    """Class for many-to-many link table between posts and tags"""
+    __tablename__ = "post_tag"
+    
+    post_id = db.Column(db.Integer, db.ForeignKey("posts.id"), primary_key=True)
+    tag_id =  db.Column(db.Integer, db.ForeignKey("tags.id"), primary_key=True)
 
 
 

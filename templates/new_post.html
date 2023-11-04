@@ -16,6 +16,19 @@
         <td><textarea id="content" name="content" rows="4" cols="50"></textarea></td>
       </tr>
       <tr>
+        <td colspan="2">
+          <h3>Tags</h3>
+          <input type="hidden" id="selected_tags" name="selected_tags" value="{{selected_tags}}">
+          {% for tag in tags %}
+            {% if tag.id in selected_tags %}
+              <input type="checkbox" id="_chktag" name="chk_tag" value="{{tag.id}}" checked>{{tag.name}}<br/>
+            {% else %}
+              <input type="checkbox" id="_chktag" name="chk_tag" value="{{tag.id}}">{{tag.name}}<br/>
+            {% endif %}
+          {% endfor %}
+         </td>
+      </tr>
+      <tr>
         <td colspan="2"><input type="submit" name="add_cancel" value="Cancel">&nbsp;&nbsp;&nbsp<input type="submit" name="add_cancel" value="Add"></td>
       </tr>
     </table>

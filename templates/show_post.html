@@ -5,9 +5,15 @@
 
 <h1>{{post.title}}</h1>
 <p>{{post.content}}</p>
-<p><i>by {{post.user.full_name}} on  {{post.pretty_date}}</i></p>
+<p><i>by {{post.user.full_name}} on  {{post.pretty_date}}</i>
+<p><h3>Tags</h3>
+<ul>
+  {% for tag in post.tags %}
+  <li>{{tag.name}}</li>
+  {% endfor %}
+</ul>
+</p>
     
-
           <form action="/post_action/{{post.id}}" method="POST">
             <input type="submit" name="cancel_edit_delete" value="Cancel">&nbsp;&nbsp;&nbsp<input type="submit" name="cancel_edit_delete" value="Edit">&nbsp;&nbsp;&nbsp<input type="submit" name="cancel_edit_delete" value="Delete">
           </form>

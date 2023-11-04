@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Create Tag{% endblock %}
+
+{% block content %}
+
+<h1>Edit tag {{tag.name}}</h1>
+<p>
+  <form action="/save_tag" method="POST">
+    <input type="hidden" id="tagid" name="tagid" value="{{tag.id}}">
+    <table>
+      <tr>
+        <td align="right"> <label for="name">Name: </label></td>
+        <td><input type="text" name="name" value="{{tag.name}}"/></td>
+      </tr>
+      <tr>
+        <td colspan="2"><input type="submit" name="save_cancel" value="Cancel">&nbsp;&nbsp;&nbsp<input type="submit" name="save_cancel" value="Save"></td>
+      </tr>
+    </table>
+  </form>
+</p>
+     
+<a href="/">Home</a>
+
+{% endblock %}

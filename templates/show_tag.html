@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Tag {{tag.name}}{% endblock %}
+
+{% block content %}
+
+<h1>{{tag.name}}</h1>
+<p>
+  <form action="/tags/{{tag.id}}/edit" method="POST">
+    <table>
+      <tr>
+        <td colspan="2"></td>
+        {% if tag.posts | count > 0 %}
+        <ul>
+          {% for post in tag.posts %}
+          <li><a href="/posts/{{post.id}}">{{post.title}}</a></li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </tr>
+      <tr>
+        <td colspan="2"><input type="submit" name="edit_delete_cancel" value="Edit">&nbsp;&nbsp;&nbsp<input type="submit" name="edit_delete_cancel" value="Delete">
+          &nbsp;&nbsp;&nbsp<input type="submit" name="edit_delete_cancel" value="Cancel"></td>
+      </tr>
+    </table>
+  </form>
+</p>
+     
+<a href="/">Home</a>
+
+{% endblock %}
